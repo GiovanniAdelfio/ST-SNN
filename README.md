@@ -11,7 +11,7 @@ The architecture has been evaluated against strong baselines on standard action 
 | Model | Spatial Module | Temporal Module | Accuracy |
 |-------|----------------|-----------------|----------|
 | ST-GCN (Baseline)| GCN | Standard | 81.5% |
-| **ST-SNN** | SheafNN | Standard | ** 85.4%** |
+| **ST-SNN** | SheafNN | Standard | **85.4%** |
 | STGCN++ | GCN | MS-TCN | 89.4% |
 | **ST-SNN+** | SheafNN | MS-TCN | **~89.0%** |
 
