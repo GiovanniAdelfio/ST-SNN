@@ -15,13 +15,7 @@ The architecture has been evaluated against strong baselines on standard action 
 | STGCN++ | GCN | MS-TCN | 89.4% |
 | **ST-SNN+** | SheafNN | MS-TCN | **~89.0%** |
 
-## Architectural Highlights
-
-* **Orthogonal Restriction Maps via Lie Algebra:** Restriction maps $SO(d)$ are generated using the matrix exponential of learnable skew-symmetric matrices. This mapping requires only 6 independent parameters per edge for a $4 \times 4$ stalk, guaranteeing strict mathematical orthogonality while preventing over-parametrization.
-* **Tensor Core Optimization:** The dynamic Sheaf Laplacian routing is structured using hardware-aware memory contiguous tensors. The `einsum` operations have been explicitly formulated to trigger cuBLAS Batched Matrix Multiplications (`bmm`) on CUDA Tensor Cores, eliminating VRAM memory thrashing and stabilizing training speeds.
-* **Gradient Accumulation Integration:** Engineered to support large-capacity multi-scale temporal modules (MS-TCN) without exceeding physical VRAM limits, ensuring stable convergence through synchronized gradient accumulation steps.
-
-## 🛠️ Installation & Integration
+## Installation & Integration
 
 This repository is designed as a direct overlay for PySKL. It contains only the novel topological modules, configuration files, and the pre-modified `__init__.py` files required for MMCV registry integration.
 
