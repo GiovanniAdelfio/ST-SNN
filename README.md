@@ -4,18 +4,18 @@ This repository contains the implementation of **ST-SNN** (Spatio-Temporal Sheaf
 
 Built as a plug-in module for the [PySKL](https://github.com/kennymckormick/pyskl) ecosystem, ST-SNN replaces standard Graph Convolutional Networks (GCNs) with Sheaf Neural Networks (SheafNN). This approach leverages Sheaf Laplacians to effectively model heterophilic interactions in human skeleton graphs, preventing over-smoothing and capturing complex joint correlations.
 
-## 🚀 Performance
+## Performance
 
 The architecture has been evaluated against strong baselines on standard action recognition benchmarks:
 
 | Model | Spatial Module | Temporal Module | Accuracy |
 |-------|----------------|-----------------|----------|
-| ST-GCN (Baseline)| GCN | Standard | 85.4% |
-| **ST-SNN** | SheafNN | Standard | **> 85.4%** |
-| STGCN++ | GCN | MS-TCN | ~89.0% |
+| ST-GCN (Baseline)| GCN | Standard | 81.5% |
+| **ST-SNN** | SheafNN | Standard | ** 85.4%** |
+| STGCN++ | GCN | MS-TCN | 89.4% |
 | **ST-SNN+** | SheafNN | MS-TCN | **~89.0%** |
 
-## 🧠 Architectural Highlights
+## Architectural Highlights
 
 * **Orthogonal Restriction Maps via Lie Algebra:** Restriction maps $SO(d)$ are generated using the matrix exponential of learnable skew-symmetric matrices. This mapping requires only 6 independent parameters per edge for a $4 \times 4$ stalk, guaranteeing strict mathematical orthogonality while preventing over-parametrization.
 * **Tensor Core Optimization:** The dynamic Sheaf Laplacian routing is structured using hardware-aware memory contiguous tensors. The `einsum` operations have been explicitly formulated to trigger cuBLAS Batched Matrix Multiplications (`bmm`) on CUDA Tensor Cores, eliminating VRAM memory thrashing and stabilizing training speeds.
