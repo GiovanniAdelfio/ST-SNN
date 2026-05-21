@@ -24,7 +24,3 @@ Ensure you have a working installation of [PySKL](https://github.com/kennymckorm
 
 ### 2. Plug-in Installation
 Simply copy and paste the contents of this repository directly into your local PySKL root directory. 
-
-```bash
-# Example assuming both directories are side-by-side
-cp -r ST-SNN/* pyskl/
