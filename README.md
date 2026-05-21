@@ -6,7 +6,7 @@ Built as a plug-in module for the [PySKL](https://github.com/kennymckormick/pysk
 
 ## Performance
 
-The architecture has been evaluated against strong baselines on standard action recognition benchmarks:
+The architecture has been evaluated against strong baselines on standard action recognition benchmarks (ntu60_xsub_3d):
 
 | Model | Spatial Module | Temporal Module | Accuracy |
 |-------|----------------|-----------------|----------|
