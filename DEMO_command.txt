@@ -1,0 +1,1 @@
+python demo.py --config configs\stsnn\stsnn++_strong_aug\j.py --checkpoint work_dirs\stsnn++\strong_aug_ntu60_xsub_3dkp\j\latest.pth --video test_3.mp4 --labels data\nturgbd\ntu60_labels.txt
