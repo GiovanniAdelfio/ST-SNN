@@ -1,7 +1,9 @@
 model = dict(
     type='RecognizerGCN',
     backbone=dict(
-        type='Sheaf_STGCN',
+        type='STSNN',
+        gcn_stalk = 2,
+        gcn_with_res = True,
         tcn_dropout=0.5,
         graph_cfg=dict(layout='nturgb+d', mode='stgcn_spatial')),
     cls_head=dict(type='GCNHead', num_classes=60, in_channels=256))
@@ -19,7 +21,7 @@ pipeline = [
 ]
 data = dict(
     videos_per_gpu=10,
-    workers_per_gpu=0,
+    workers_per_gpu=2,
     test_dataloader=dict(videos_per_gpu=1),
     train=dict(
         type='RepeatDataset',
@@ -47,6 +49,6 @@ log_config = dict(interval=100, hooks=[dict(type='TextLoggerHook')])
 
 # runtime settings
 log_level = 'INFO'
-work_dir = './work_dirs/stgcn/stgcn_sheaf_ntu60_xsub_3dkp/retest/j'
+work_dir = './work_dirs/stsnn/stsnn_vanilla_ntu60_xsub_3dkp/retest/j'
 
 find_unused_parameters = False
