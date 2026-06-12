@@ -1,7 +1,7 @@
 model = dict(
     type='RecognizerGCN',
     backbone=dict(
-        type='Sheaf_STGCN',
+        type='STSNN',
         graph_cfg=dict(layout='nturgb+d', mode='stgcn_spatial')),
     cls_head=dict(type='GCNHead', num_classes=60, in_channels=256))
 
