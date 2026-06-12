@@ -23,7 +23,6 @@ class STSNNBlock(nn.Module):
         super().__init__()
 
         # Estrazione edge_index dalla matrice A di STGCN
-        # A di solito è (K, 25, 25). Facciamo la somma per collassare K e troviamo gli indici non nulli.
         if A.dim() == 3:
             A_base = A.sum(dim=0)
         else:
@@ -37,17 +36,17 @@ class STSNNBlock(nn.Module):
         tcn_type = tcn_kwargs.pop('type', 'unit_tcn')
         
         # INNESTO DELLA SHEAF NN
-        # Inserisci i parametri della tua Sheaf (stalk, n_layers) a piacimento
         self.gcn = SheafNN(
             in_channels=in_channels, 
             out_channels=out_channels, 
             edge_index=edge_index, 
             num_nodes=num_nodes,
-            stalk=2, 
+            stalk= gcn_kwargs.get("stalk", 2), 
             n_layers=2,
             device = device,
-            res = gcn_kwargs.get("with_res", False),
-            ort = gcn_kwargs.get("orthogonal", True)
+            with_res = gcn_kwargs.get("with_res", False),
+            ort = gcn_kwargs.get("orthogonal", True),
+            dropout= gcn_kwargs.get("dropout", 0.0)
         )
 
         if tcn_type == 'unit_tcn':
@@ -103,7 +102,7 @@ class STSNN(nn.Module):
             if isinstance(v, tuple) and len(v) == num_stages:
                 for i in range(num_stages):
                     lw_kwargs[i][k] = v[i]
-        lw_kwargs[0].pop('tcn_dropout', None)
+        # lw_kwargs[0].pop('tcn_dropout', None) let's try with dropout in tcn as well
 
         self.in_channels = in_channels
         self.base_channels = base_channels
