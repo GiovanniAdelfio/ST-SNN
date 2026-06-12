@@ -1,9 +1,12 @@
 model = dict(
     type='RecognizerGCN',
     backbone=dict(
-        type='Sheaf_STGCN',
+        type='STSNN',
         gcn_with_res=True,
+        gcn_stalk = 4,
         gcn_orthogonal = True,
+        gcn_dropout = 0.0,
+        tcn_dropout = 0.0,
         tcn_type='mstcn',
         graph_cfg=dict(layout='nturgb+d', mode='spatial')),
     cls_head=dict(type='GCNHead', num_classes=60, in_channels=256))
@@ -39,7 +42,8 @@ test_pipeline = [
 ]
 data = dict(
     videos_per_gpu=16,
-    workers_per_gpu=0,
+    workers_per_gpu=2,
+    pin_memory = True,
     test_dataloader=dict(videos_per_gpu=1),
     train=dict(
         type='RepeatDataset',
@@ -49,20 +53,25 @@ data = dict(
     test=dict(type=dataset_type, ann_file=ann_file, pipeline=test_pipeline, split='xsub_val'))
 
 # optimizer
-optimizer = dict(type='SGD', lr=0.1, momentum=0.9, weight_decay=0.0005, nesterov=True)
+optimizer = dict(type='SGD', 
+                 lr=0.1, 
+                 momentum=0.9, 
+                 weight_decay=0.0005, 
+                 nesterov=True
+)
 
 optimizer_config = dict(type='GradientCumulativeOptimizerHook',
-                        cumulative_iters = 8, 
+                        cumulative_iters = 16, # Raddoppiato in quanto addestramento non stabile
                         grad_clip=None)
 # learning policy
 lr_config = dict(policy='CosineAnnealing', min_lr=0, by_epoch=False)
-total_epochs = 17
+total_epochs = 40
 checkpoint_config = dict(interval=1)
 evaluation = dict(interval=1, metrics=['top_k_accuracy'])
 log_config = dict(interval=50, hooks=[dict(type='TextLoggerHook')])
 
 # runtime settings
 log_level = 'INFO'
-work_dir = './work_dirs/stgcn++/stgcn++_sheaf_ntu60_xsub_3dkp/j'
+work_dir = './work_dirs/stsnn++/stalk4_ntu60xsub_3dkp/j'
 
 find_unused_parameters = False
