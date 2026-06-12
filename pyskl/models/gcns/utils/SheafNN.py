@@ -12,9 +12,9 @@ class SheafNN(nn.Module):
                  num_nodes: int = 25,
                  n_layers: int = 2,
                  ort: bool = True,
-                 stalk: int = 4,
+                 stalk: int = 2,
                  act: str = 'F.elu',
-                 dropout: float = 0.2,
+                 dropout: float = 0.0,
                  with_res: bool = False,
                  device="cuda"):
         super().__init__()
